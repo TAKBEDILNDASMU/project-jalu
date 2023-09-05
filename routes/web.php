@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BerkasController;
+use App\Http\Controllers\IndexController;
+use App\Models\Berkas;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::get('/', function (Berkas $berkas) {
+    return response()->view('index', [
+        'berkas' => $berkas::latest()->get(),
+    ]);
+});
+
+Route::prefix('/berkas')->controller(BerkasController::class)->group(function () {
+    Route::get('/', 'index')->name('berkas.index');
+    Route::post('/', 'store');
+    Route::put('/{berkas}', 'update');
+    Route::delete('/{berkas}', 'destroy');
 });
