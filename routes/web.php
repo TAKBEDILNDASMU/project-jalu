@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\BerkasController;
-use App\Http\Controllers\IndexController;
 use App\Models\Berkas;
 use Illuminate\Support\Facades\Route;
 

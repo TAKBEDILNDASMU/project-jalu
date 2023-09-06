@@ -4,12 +4,12 @@
     $numberDelete = 1;
     $numberEdit = 1;
     @endphp
-
+    <x-flash-message />
     <div class="container my-4 d-flex justify-content-end">
         <a href="/">Kembali</a>
     </div>
 
-    <x-flash-message />
+
 
     <div class="container my-4 card bg-light mb-3 p-5">
         <h3>Tambah Berkas</h3>
@@ -17,7 +17,7 @@
             @csrf
             <div class="form-group my-4">
                 <label for="exampleInputEmail1">Judul Berkas</label>
-                <input type="text" class="form-control" name="nama_berkas">
+                <input type="text" class="form-control" name="nama_berkas" value="{{old('nama_berkas')}}">
             </div>
             <x-file-upload :id=1 />
             <button class="btn btn-primary my-2" type="submit">Tambah</button>

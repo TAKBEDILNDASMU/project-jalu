@@ -9,6 +9,8 @@ class Berkas extends Model
 {
     use HasFactory;
 
+    public $table = "berkas";
+
     protected $fillable = [
         'nama_berkas', 'path_berkas'
     ];
