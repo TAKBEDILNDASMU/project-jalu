@@ -11,10 +11,18 @@ use Illuminate\Validation\Rule;
 
 class BerkasController extends Controller
 {
+
+    public function index(Request $request, Berkas $berkas) : Response 
+    {
+        return response()->view('index', [
+            'berkas' => $berkas::latest()->get(),
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
-    public function index(Request $request, Berkas $berkas) : Response
+    public function create(Request $request, Berkas $berkas) : Response
     {
         return response()->view('berkas.manage-berkas', [
             'berkas' => $berkas::latest()->get(),
@@ -43,7 +51,7 @@ class BerkasController extends Controller
         $incomingFields['path_berkas'] = $request->file('path_berkas')->store('docs', 'public');
         Berkas::create($incomingFields);
 
-        return response()->redirectToRoute('berkas.index')->with('success', "Berkas berhasil ditambahkan"); 
+        return response()->redirectToRoute('berkas.create')->with('success', "Berkas berhasil ditambahkan"); 
     }
 
     /**
@@ -63,7 +71,7 @@ class BerkasController extends Controller
 
         // return error if the nama_berkas has the same value and user not uploaded a file
         if($incomingFields['nama_berkas'] == $berkas->nama_berkas && !$request->hasFile('path_berkas')) {
-            return response()->redirectToRoute('berkas.index')->with("error", "Mohon ganti nama atau file berkas"); 
+            return response()->redirectToRoute('berkas.create')->with("error", "Mohon ganti nama atau file berkas"); 
         }
 
         // if the user upload an file, delete the previous file and store the new file into the storage
@@ -73,7 +81,7 @@ class BerkasController extends Controller
         }
 
         $berkas->update($incomingFields);
-        return response()->redirectToRoute('berkas.index')->with("success", "Berkas berhasil diedit"); 
+        return response()->redirectToRoute('berkas.create')->with("success", "Berkas berhasil diedit"); 
     }
 
     /**
@@ -83,7 +91,7 @@ class BerkasController extends Controller
     {
         $this->deleteFile($request, $berkas);
         $berkas->delete();
-        return response()->redirectToRoute('berkas.index')->with('success', 'Data berhasil dihapus');
+        return response()->redirectToRoute('berkas.create')->with('success', 'Data berhasil dihapus');
     }
 
     /**

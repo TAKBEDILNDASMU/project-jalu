@@ -16,18 +16,29 @@
 <div class="pre-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-sm-8 col-7">
-                <ul class="info">
+            <div class="col-lg-8 col-sm-8 col-7 d-flex">
+                <ul class="info d-flex align-items-center">
                     <li><a href="#"><i class="fa fa-envelope"></i>desawringinanom.com</a></li>
                     <li><a href="#"><i class="fa fa-phone"></i>08124753771</a></li>
                 </ul>
             </div>
             <div class="col-lg-4 col-sm-4 col-5">
-                <ul class="social-media">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                <ul class="d-flex align-items-center justify-content-end gap-5">
+                    @auth
+                    <li>
+                        <em>Hai, {{auth()->user()->name}}</em>
+                    </li>
+                    <li>
+                        <form action="/logout" method="post">
+                            @csrf
+                            <button type="submit" class="btn link-danger">
+                                <i class="fa-solid fa-door-closed"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                    @else
+                    <li><a href="/login">Login</a></li>
+                    @endauth
                 </ul>
             </div>
         </div>

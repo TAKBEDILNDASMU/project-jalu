@@ -13,7 +13,9 @@
     <div class="container-fluid wow fadeIn" data-wow-duration="1s" data-wow-delay="0.7s">
         <div class="row">
             <div class="col-lg-12">
+                @if (isset(auth()->user()->is_admin))
                 <a href="/berkas" class="btn btn-primary ms-3">Atur Berkas</a>
+                @endif
                 <div class="loop owl-carousel">
                     @unless (count($berkas) == 0)
                     @foreach ($berkas as $item)

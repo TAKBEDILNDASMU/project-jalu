@@ -1,5 +1,5 @@
 <x-layout>
-
+    <x-flash-message />
     <x-header />
     <x-main />
     <x-about />

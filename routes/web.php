@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BerkasController;
+use App\Http\Controllers\UserController;
 use App\Models\Berkas;
 use Illuminate\Support\Facades\Route;
 
@@ -15,15 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (Berkas $berkas) {
-    return response()->view('index', [
-        'berkas' => $berkas::latest()->get(),
-    ]);
-});
+Route::get('/', [BerkasController::class,'index'])->name('index');
 
-Route::prefix('/berkas')->controller(BerkasController::class)->group(function () {
-    Route::get('/', 'index')->name('berkas.index');
+Route::prefix('/berkas')->controller(BerkasController::class)->middleware('admin')->group(function () {
+    Route::get('/', 'create')->name('berkas.create');
     Route::post('/', 'store');
     Route::put('/{berkas}', 'update');
     Route::delete('/{berkas}', 'destroy');
+});
+
+Route::prefix('/')->controller(UserController::class)->group(function() {
+    Route::get('/register', 'register')->name('register');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/login', 'login')->name('login');
+    Route::post('/authenticate', 'authenticate')->name('authenticate');
+    Route::post('/logout', 'logout')->name('logout');
 });

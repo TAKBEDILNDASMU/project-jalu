@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="../css/templatemo-digimedia-v3.css">
     <link rel="stylesheet" href="../css/animated.css">
     <link rel="stylesheet" href="../css/owl.css">
+    <link rel="stylesheet" href="../css/login.css">
     <!--
 
 TemplateMo 568 DigiMedia
